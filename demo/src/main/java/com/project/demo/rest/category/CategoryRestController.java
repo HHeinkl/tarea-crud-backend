@@ -12,19 +12,18 @@ import java.util.List;
 public class CategoryRestController {
     private final CategoryService service;
 
-    // Inyección por constructor (estilo moderno)
     public CategoryRestController(CategoryService service) {
         this.service = service;
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('SUPER_ADMIN')") // Solo SUPER_ADMIN puede crear
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public CategoryDTO create(@RequestBody CategoryDTO dto) {
         return service.createCategory(dto);
     }
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()") // Cualquier usuario autenticado puede listar
+    @PreAuthorize("isAuthenticated()")
     public List<CategoryDTO> getAll() {
         return service.getAllCategories();
     }

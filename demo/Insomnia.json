@@ -1,0 +1,156 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-06-15T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app",
+  "resources": [
+    {
+      "_id": "req_login_superadmin",
+      "parentId": "wrk_1",
+      "name": "Login SUPER_ADMIN",
+      "method": "POST",
+      "url": "http://localhost:8080/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"super.admin@gmail.com\",\n  \"password\": \"superadmin123\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "_type": "request"
+    },
+    {
+      "_id": "req_login_user",
+      "parentId": "wrk_1",
+      "name": "Login USER",
+      "method": "POST",
+      "url": "http://localhost:8080/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"user@gmail.com\",\n  \"password\": \"user123\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_category",
+      "parentId": "wrk_1",
+      "name": "Create Category (SUPER_ADMIN)",
+      "method": "POST",
+      "url": "http://localhost:8080/api/categories",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Electronics\",\n  \"description\": \"Electronic devices\"\n}"
+      },
+      "authentication": {
+        "type": "bearer",
+        "token": "{{super_admin_token}}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_categories",
+      "parentId": "wrk_1",
+      "name": "List Categories",
+      "method": "GET",
+      "url": "http://localhost:8080/api/categories",
+      "authentication": {
+        "type": "bearer",
+        "token": "{{user_token}}"
+      },
+      "headers": [],
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_product",
+      "parentId": "wrk_1",
+      "name": "Create Product (SUPER_ADMIN)",
+      "method": "POST",
+      "url": "http://localhost:8080/api/products",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Smartphone X\",\n  \"description\": \"Latest model\",\n  \"price\": 499.99,\n  \"stockQuantity\": 50,\n  \"categoryId\": 1\n}"
+      },
+      "authentication": {
+        "type": "bearer",
+        "token": "{{super_admin_token}}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_products",
+      "parentId": "wrk_1",
+      "name": "List Products",
+      "method": "GET",
+      "url": "http://localhost:8080/api/products",
+      "authentication": {
+        "type": "bearer",
+        "token": "{{user_token}}"
+      },
+      "headers": [],
+      "_type": "request"
+    },
+    {
+      "_id": "req_update_product",
+      "parentId": "wrk_1",
+      "name": "Update Product (SUPER_ADMIN)",
+      "method": "PUT",
+      "url": "http://localhost:8080/api/products/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Smartphone X Pro\",\n  \"description\": \"Premium model\",\n  \"price\": 599.99,\n  \"stockQuantity\": 30,\n  \"categoryId\": 1\n}"
+      },
+      "authentication": {
+        "type": "bearer",
+        "token": "{{super_admin_token}}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_product",
+      "parentId": "wrk_1",
+      "name": "Delete Product (SUPER_ADMIN)",
+      "method": "DELETE",
+      "url": "http://localhost:8080/api/products/1",
+      "authentication": {
+        "type": "bearer",
+        "token": "{{super_admin_token}}"
+      },
+      "headers": [],
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_1",
+      "_type": "workspace",
+      "name": "Products & Categories API",
+      "description": "Complete collection for testing products and categories endpoints",
+      "scope": "collection"
+    }
+  ]
+}

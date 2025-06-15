@@ -8,8 +8,8 @@ public class ProductDTO {
     private String description;
     private Double price;
     private Integer stockQuantity;
-    private Long categoryId;  // Para relaciones
-    private String categoryName;  // Opcional: nombre de la categoría
+    private Long categoryId;
+    private String categoryName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

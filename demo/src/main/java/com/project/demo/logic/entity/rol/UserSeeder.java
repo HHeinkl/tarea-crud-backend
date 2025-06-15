@@ -10,18 +10,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Order(2)
+@Order(3) // Asegúrate de que este se ejecute después del seeder de roles
 @Component
-public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
+public class UserSeeder implements ApplicationListener<ContextRefreshedEvent> {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
 
-
-    public AdminSeeder(
+    public UserSeeder(
             RoleRepository roleRepository,
-            UserRepository  userRepository,
+            UserRepository userRepository,
             PasswordEncoder passwordEncoder
     ) {
         this.roleRepository = roleRepository;
@@ -31,28 +29,28 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        this.createSuperAdministrator();
+        this.createDefaultUser();
     }
 
-    private void createSuperAdministrator() {
-        User superAdmin = new User();
-        superAdmin.setName("Super");
-        superAdmin.setLastname("Admin");
-        superAdmin.setEmail("super.admin@gmail.com");
-        superAdmin.setPassword("superadmin123");
+    private void createDefaultUser() {
+        User defaultUser = new User();
+        defaultUser.setName("Regular");
+        defaultUser.setLastname("User");
+        defaultUser.setEmail("user@gmail.com");
+        defaultUser.setPassword("user123");
 
-        Optional<Role> optionalRole = roleRepository.findByName(RoleEnum.SUPER_ADMIN);
-        Optional<User> optionalUser = userRepository.findByEmail(superAdmin.getEmail());
+        Optional<Role> optionalRole = roleRepository.findByName(RoleEnum.USER);
+        Optional<User> optionalUser = userRepository.findByEmail(defaultUser.getEmail());
 
         if (optionalRole.isEmpty() || optionalUser.isPresent()) {
             return;
         }
 
         var user = new User();
-        user.setName(superAdmin.getName());
-        user.setLastname(superAdmin.getLastname());
-        user.setEmail(superAdmin.getEmail());
-        user.setPassword(passwordEncoder.encode(superAdmin.getPassword()));
+        user.setName(defaultUser.getName());
+        user.setLastname(defaultUser.getLastname());
+        user.setEmail(defaultUser.getEmail());
+        user.setPassword(passwordEncoder.encode(defaultUser.getPassword()));
         user.setRole(optionalRole.get());
 
         userRepository.save(user);
