@@ -1,40 +1,35 @@
 package com.project.demo.logic.entity.category;
 
-import com.project.demo.logic.entity.product.Product;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "categories")
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    // Auditoría (igual que en User)
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
-    private List<Product> products;
-
+    // Constructor
     public Category() {}
 
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -43,12 +38,27 @@ public class Category {
         this.id = id;
     }
 
-    public String getName() {  // Getter para "name"
+    public String getName() {
         return name;
     }
 
-    public void setName(String name) {  // Setter para "name"
+    public void setName(String name) {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
